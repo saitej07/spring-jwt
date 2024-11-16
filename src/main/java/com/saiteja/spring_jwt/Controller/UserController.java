@@ -19,12 +19,14 @@ public class UserController {
 
     @PostMapping("/register")
     public User addUser(@RequestBody User user) {
+        publisher.sendUserToTopic(user);
         publisher.messageSendToTopic("User Registered: " + user.getUsername());
         return service.addUser(user);
     }
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
+        publisher.sendUserToTopic(user);
         publisher.messageSendToTopic("User logged in: " + user.getUsername());
         return service.verify(user);
     }
