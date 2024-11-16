@@ -1,5 +1,6 @@
 package com.saiteja.spring_jwt.Controller;
 
+import com.saiteja.spring_jwt.config.KafkaConsumerConfig;
 import com.saiteja.spring_jwt.entity.User;
 import com.saiteja.spring_jwt.service.KafkaMessagePublisher;
 import com.saiteja.spring_jwt.service.UserService;
@@ -16,6 +17,7 @@ public class UserController {
 
     @Autowired
     private KafkaMessagePublisher publisher;
+
 
     @PostMapping("/register")
     public User addUser(@RequestBody User user) {
