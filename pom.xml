@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.saiteja</groupId>
 	<artifactId>spring-jwt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>spring-jwt</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -104,5 +104,21 @@
 		</plugins>
 		<finalName>spring-jwt</finalName>
 	</build>
+	<distributionManagement>
+ <!-- Publish the versioned releases here -->
+ 
+  <snapshotRepository>
+  <id>snapshotnexus</id>
+  <name>snapshot nexus</name>
+  <url>http://localhost:8081/repository/maven-snapshots/</url>
+ </snapshotRepository>
+ 
+ <repository>
+  <id>releasenexus</id>
+  <name>release nexus</name>
+  <url>http://localhost:8081/repository/maven-releases/</url>
+ </repository>
+
+</distributionManagement>
 
 </project>
