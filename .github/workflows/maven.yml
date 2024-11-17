@@ -23,7 +23,7 @@ jobs:
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: saitej150/spring-jwt
+          image: saitej150/spring-security
           tags: latest
           registry: docker.io
           dockerfile: Dockerfile

@@ -102,7 +102,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>spring-jwt</finalName>
+		<finalName>spring-security</finalName>
 	</build>
 	<distributionManagement>
  <!-- Publish the versioned releases here -->
