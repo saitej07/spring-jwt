@@ -10,6 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      nexus:
+        image: sonatype/nexus3:latest
+        ports:
+          - 8081:8081
+        options: >-
+          --health-cmd="curl -f http://localhost:8081" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,7 +36,14 @@ jobs:
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        run: mvn clean deploy -DskipTests -Dnexus.username=$NEXUS_USERNAME -Dnexus.password=$NEXUS_PASSWORD
+        run: |
+          # Wait for Nexus to be fully initialized
+          sleep 30
+          mvn clean deploy \
+            -DskipTests \
+            -DaltDeploymentRepository=snapshotnexus::default::http://localhost:8081/repository/maven-snapshots/ \
+            -Dnexus.username=$NEXUS_USERNAME \
+            -Dnexus.password=$NEXUS_PASSWORD
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
