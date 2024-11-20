@@ -32,6 +32,6 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - NEXUS_SECURITY_RANDOMPASSWORD=false  # Disable random password generation for easy login
-      - NEXUS_ADMIN_PASSWORD=admin123  # Optional: Set a custom admin password
+      - NEXUS_SECURITY_RANDOMPASSWORD=false
+      - NEXUS_ADMIN_PASSWORD=admin123
     restart: always
