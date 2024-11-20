@@ -31,18 +31,7 @@ services:
     container_name: nexus
     ports:
       - "8081:8081" # Expose Nexus UI
-    volumes:
-      - ./nexus-data:/nexus-data # Persist Nexus data
     environment:
       - NEXUS_SECURITY_RANDOMPASSWORD=false  # Disable random password generation for easy login
       - NEXUS_ADMIN_PASSWORD=admin123  # Optional: Set a custom admin password
     restart: always
-    networks:
-      - kafka-net  # Connect Nexus to a custom network for isolation (optional)
-
-networks:
-  kafka-net:  # Define a custom network for your services (optional)
-    driver: bridge
-
-volumes:
-  nexus-data: # Persist Nexus data across container restarts
