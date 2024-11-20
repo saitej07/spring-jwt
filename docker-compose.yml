@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -24,3 +25,24 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1  # Set this to 1 for single-broker setups
+
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: nexus
+    ports:
+      - "8081:8081" # Expose Nexus UI
+    volumes:
+      - ./nexus-data:/nexus-data # Persist Nexus data
+    environment:
+      - NEXUS_SECURITY_RANDOMPASSWORD=false  # Disable random password generation for easy login
+      - NEXUS_ADMIN_PASSWORD=admin123  # Optional: Set a custom admin password
+    restart: always
+    networks:
+      - kafka-net  # Connect Nexus to a custom network for isolation (optional)
+
+networks:
+  kafka-net:  # Define a custom network for your services (optional)
+    driver: bridge
+
+volumes:
+  nexus-data: # Persist Nexus data across container restarts
