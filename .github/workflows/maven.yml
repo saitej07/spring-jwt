@@ -24,15 +24,15 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
-      - name: Deploy to Nexus
-        env:
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        run: |
-          mvn deploy -DskipTests \
-          -DaltDeploymentRepository=nexus-releases::default::http://localhost:8081/repository/maven-releases/ \
-          -Dnexus.username=$NEXUS_USERNAME \
-          -Dnexus.password=$NEXUS_PASSWORD
+#      - name: Deploy to Nexus
+#        env:
+#          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+#          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+#        run: |
+#          mvn deploy -DskipTests \
+#          -DaltDeploymentRepository=nexus-releases::default::http://localhost:8081/repository/maven-releases/ \
+#          -Dnexus.username=$NEXUS_USERNAME \
+#          -Dnexus.password=$NEXUS_PASSWORD
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6

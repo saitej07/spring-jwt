@@ -5,9 +5,13 @@ import com.saiteja.spring_jwt.entity.User;
 import com.saiteja.spring_jwt.service.KafkaMessagePublisher;
 import com.saiteja.spring_jwt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -31,5 +35,10 @@ public class UserController {
         publisher.sendUserToTopic(user);
         publisher.messageSendToTopic("User logged in: " + user.getUsername());
         return service.verify(user);
+    }
+
+    @GetMapping("/getPosts")
+    public List<Map<String,Object>> getPosts() {
+        return service.getPosts();
     }
 }
